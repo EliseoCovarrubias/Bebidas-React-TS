@@ -1,15 +1,27 @@
 import { useAppStore } from "../stores/useAppStore";
 
+// Pagina de generar recetas con IA
 export default function GenerateAI() {
+	// Obtener estado de notificación
 	const showNotification = useAppStore((state) => state.showNotification);
+
+	// Obtener funcion de generacion de receta
 	const generateRecipe = useAppStore((state) => state.generateRecipe);
+
+	// Obtener estado de receta
 	const recipe = useAppStore((state) => state.recipe);
+
+	// Obtener estado de generacion de receta
 	const isGenerating = useAppStore((state) => state.isGenerating);
 
+	// Manejar envio del formulario
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		// Obtenemos los datos del formulario
 		const form = new FormData(e.currentTarget);
+
+		// Extraemos el campo prompt del formulario
 		const prompt = form.get("prompt") as string;
 
 		if (prompt.trim() === "") {
@@ -17,6 +29,7 @@ export default function GenerateAI() {
 			return;
 		}
 
+		// Generamos la receta
 		await generateRecipe(prompt);
 	};
 

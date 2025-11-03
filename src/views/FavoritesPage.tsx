@@ -2,25 +2,27 @@ import { useMemo } from "react";
 import DrinkCard from "../components/DrinkCard";
 import { useAppStore } from "../stores/useAppStore";
 
+// Pagina de Bebidas favoritas
 export default function FavoritesPage() {
-	
+	// Obtener las bebidas favoritas
 	const favorites = useAppStore((state) => state.favorites);
+
+	// Verificar si hay bebidas favoritas
 	const hasFavorites = useMemo(() => favorites.length, [favorites]);
 
 	return (
 		<>
 			<h1 className="text-6xl font-extrabold">Favoritos</h1>
-			{hasFavorites? (
+			{hasFavorites ? (
 				<div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 my-10 gap-10">
-					{favorites.map( drink => (
-						<DrinkCard 
-							key={drink.idDrink} 
-							drink={drink} 
-						/>
+					{favorites.map((drink) => (
+						<DrinkCard key={drink.idDrink} drink={drink} />
 					))}
 				</div>
 			) : (
-				<p className="my-10 text-center text-2xl">Los favoritos se mostrarán aqui</p>
+				<p className="my-10 text-center text-2xl">
+					Los favoritos se mostrarán aqui
+				</p>
 			)}
 		</>
 	);

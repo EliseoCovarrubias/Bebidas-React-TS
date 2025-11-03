@@ -2,9 +2,12 @@ import { useMemo } from "react";
 import { useAppStore } from "../stores/useAppStore";
 import DrinkCard from "../components/DrinkCard";
 
+// Pagina principal de la aplicación
 export default function IndexPage() {
+	// Obtener las bebidas actuales
 	const drinks = useAppStore((state) => state.drinks);
 
+	// Verificar si hay bebidas
 	const hasDrinks = useMemo(() => drinks.drinks.length, [drinks.drinks]);
 
 	return (

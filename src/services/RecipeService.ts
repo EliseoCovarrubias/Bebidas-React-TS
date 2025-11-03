@@ -3,10 +3,12 @@ import api from "../lib/axios";
 import { CategoriesAPIResponseSchema, DrinksAPIResponse, RecipeAPIResponseSchema } from "../utils/recipes-schema";
 import type { SearchFilter, Drink } from "../types";
 
-
+// Obtiene la lista de categorías de bebidas
 export async function getCategories() {
 	const url = `${api.defaults.baseURL}/list.php?c=list`;
 	const { data } = await axios(url);
+
+	// Validar la respuesta con Zod
 	const result = CategoriesAPIResponseSchema.safeParse(data);
 
 	if (result.success) {
@@ -14,9 +16,12 @@ export async function getCategories() {
 	}
 }
 
+// Obtiene las bebidas filtradas por categoría e ingrediente
 export async function getRecipes(filters: SearchFilter) {
 	const url = `${api.defaults.baseURL}/filter.php?c=${filters.category}&i=${filters.ingredient}`;
 	const { data } = await axios(url);
+
+	// Validar la respuesta con Zod
 	const result = DrinksAPIResponse.safeParse(data);
 
 	if (result.success) {
@@ -24,9 +29,12 @@ export async function getRecipes(filters: SearchFilter) {
 	}
 }
 
+// Obtiene el detalle de una receta por su ID
 export async function getRecipeById(id: Drink["idDrink"]) {
 	const url = `${api.defaults.baseURL}/lookup.php?i=${id}`;
 	const { data } = await axios(url);
+
+	// Validar la respuesta con Zod
 	const result = RecipeAPIResponseSchema.safeParse(data.drinks[0]);
 
 	if (result.success) {
